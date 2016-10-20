@@ -103,7 +103,7 @@ public class SubStackTrace extends ArrayList<String>{
 
 
         // Cette regex permet de récupérer les infos de nom de fonction + nom de fichier avec numéro de ligne ou nom de librairie + le cas particulier de ligns terminanant par "in ?? ()"
-        Pattern pattern = Pattern.compile(" (.*)\\(.*\\) at (.*.:[0-9]*)| in (.*)\\(.*\\) from (.*)|( in .*)\\(.*\\)|.* in \\?\\? \\(\\)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
+        Pattern pattern = Pattern.compile(" (.*)\\(.*\\).*at (.*.:[0-9]*)| in (.*)\\(.*\\) from (.*)|( in .*)\\(.*\\)|.* in \\?\\? \\(\\)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
         Matcher matcher = pattern.matcher(splitedSubStackTrace[0]);
         Main.COUNT_TOTAL_SUBSTACKTRACE++;
         Main.COUNT_TOTAL_SUBSTACKTRACE_OK++;
