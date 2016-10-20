@@ -16,6 +16,11 @@ public class Bucket extends ArrayList<Stacktrace> {
     private HashMap<String, Integer> fileNameRanking = new HashMap<String,Integer>();
     private HashMap<String, Integer> libraryNameRanking = new HashMap<String,Integer>();
 
+
+    public Bucket() {
+    }
+    
+    
     public int getId() {
         return id;
     }
@@ -35,10 +40,6 @@ public class Bucket extends ArrayList<Stacktrace> {
     public HashMap<String, Integer> getLibraryNameRanking(){
     	return this.libraryNameRanking;	
     }
-    
-
-    public Bucket() {
-    }
 
     public void fill(File directoryBucket, int id) {
         this.id = id;
@@ -54,8 +55,22 @@ public class Bucket extends ArrayList<Stacktrace> {
         }
     }
     
+    public boolean containFunctionName(String functionName){
+    	return this.functionNameRanking.containsKey(functionName);
+    }
+    
+    public boolean containFileName(String fileName){
+    	return this.fileNameRanking.containsKey(fileName);
+    }
+    
+    public boolean containLibraryName(String libraryName){
+    	return this.libraryNameRanking.containsKey(libraryName);
+    }
+    
+    /**
+     * add allow us to evaluate how many key words of the crash were registered
+     */
     public boolean add(Stacktrace stackTrace){
-    	
     	String currentFunctionName;
     	String currentfileName;
     	String currentLibraryName;
@@ -72,8 +87,6 @@ public class Bucket extends ArrayList<Stacktrace> {
     	}
     	
     	return super.add(stackTrace);
-    	
-    	
     }
     
     private int keyValue(HashMap<String, Integer> rankMap, String name){
