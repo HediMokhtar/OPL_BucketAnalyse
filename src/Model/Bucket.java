@@ -21,14 +21,14 @@ public class Bucket extends ArrayList<Stacktrace> {
     public Bucket() {
     }
 
-    public void fill(File directoryBucket, int id) {
+    public void fill(File[] directoryStacktrace, int id) {
         this.id = id;
 
-        File [] directories = directoryBucket.listFiles();
-
         // Pour chaque dossier de Stacktrace
-        for(File directory : directories)
+        for(File directory : directoryStacktrace)
         {
+            System.out.println(Integer.parseInt(directory.getName()));
+            System.out.println();
             Stacktrace stackTrace = new Stacktrace();
             stackTrace.fill(directory.listFiles()[0], Integer.parseInt(directory.getName()));
             this.add(stackTrace);

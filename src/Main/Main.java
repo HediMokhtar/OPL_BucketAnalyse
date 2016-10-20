@@ -19,7 +19,7 @@ public class Main {
         // Pour chaque dossier de Stacktrace
         for(File directory : new File(PATH_BUCKETS).listFiles()) {
             Bucket bucket = new Bucket();
-            bucket.fill(directory.listFiles()[0], Integer.parseInt(directory.getName()));
+            bucket.fill(directory.listFiles(), Integer.parseInt(directory.getName()));
             buckets.add(bucket);
         }
 
