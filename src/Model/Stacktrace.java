@@ -22,7 +22,11 @@ public class Stacktrace extends ArrayList<SubStackTrace>{
         this.id = id;
     }
 
-    public Stacktrace(File fileStacktrace, int id) {
+    public Stacktrace() {
+
+    }
+
+    public void fill(File fileStacktrace, int id) {
         this.id = id;
 
         try {
@@ -33,11 +37,14 @@ public class Stacktrace extends ArrayList<SubStackTrace>{
             String regex = "";
             splitedStrackTrace = stacktrace.split(regex);
 
-            for(String subStackTrace : splitedStrackTrace) {
+            for(String subStackTraceString : splitedStrackTrace) {
                 //TODO split pour récupérer l'id
                 regex = "";
-                int idSub = Integer.parseInt(subStackTrace.split(regex)[0]);
-                this.add(new SubStackTrace(subStackTrace, idSub));
+                int idSub = Integer.parseInt(subStackTraceString.split(regex)[0]);
+
+                SubStackTrace subStackTrace = new SubStackTrace();
+                subStackTrace.fill(subStackTraceString, idSub);
+                this.add(subStackTrace);
             }
 
         } catch (IOException e) {

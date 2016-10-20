@@ -44,7 +44,23 @@ public class SubStackTrace extends ArrayList<String>{
         this.libraryName = libraryName;
     }
 
-    public SubStackTrace(String subStackTrace, int id) {
+    public SubStackTrace() {
+    }
+
+    /**
+     *
+     * @return True = Library; False = File; Null = Other
+     */
+    public boolean isFromLibraryOrFile(){
+        if(!libraryName.equalsIgnoreCase(""))
+            return true;
+        else if(!fileName.equalsIgnoreCase(""))
+            return false;
+        else
+            return Boolean.parseBoolean(null);
+    }
+
+    public void fill(String subStackTrace, int id) {
 
         this.id = id;
 
@@ -65,18 +81,5 @@ public class SubStackTrace extends ArrayList<String>{
         this.functionName = splitedFirstLine[0];
         this.fileName = splitedFirstLine[1];
         this.libraryName = splitedFirstLine[2];
-    }
-
-    /**
-     *
-     * @return True = Library; False = File; Null = Other
-     */
-    public boolean isFromLibraryOrFile(){
-        if(!libraryName.equalsIgnoreCase(""))
-            return true;
-        else if(!fileName.equalsIgnoreCase(""))
-            return false;
-        else
-            return Boolean.parseBoolean(null);
     }
 }

@@ -17,7 +17,12 @@ public class Main {
         ArrayList<Bucket> buckets = new ArrayList<>();
 
         // Pour chaque dossier de Stacktrace
-        for(File directory : new File(PATH_BUCKETS).listFiles())
-            buckets.add(new Bucket(directory.listFiles()[0], Integer.parseInt(directory.getName())));
+        for(File directory : new File(PATH_BUCKETS).listFiles()) {
+            Bucket bucket = new Bucket();
+            bucket.fill(directory.listFiles()[0], Integer.parseInt(directory.getName()));
+            buckets.add(bucket);
+        }
+
+        //TODO Boucle création thread
     }
 }
