@@ -50,6 +50,13 @@ public class SubStackTrace extends ArrayList<String>{
 
     public SubStackTrace() {
     }
+    
+    public SubStackTrace(int id, String functionName, String fileName, String libraryName) {
+    	this.id = id;
+    	this.functionName = functionName;
+    	this.fileName = fileName;
+    	this.libraryName = libraryName;
+    }
 
     /**
      *
