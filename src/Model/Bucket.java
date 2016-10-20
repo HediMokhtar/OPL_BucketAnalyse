@@ -27,9 +27,8 @@ public class Bucket extends ArrayList<Stacktrace> {
         // Pour chaque dossier de Stacktrace
         for(File directory : directoryStacktrace)
         {
-            System.out.println(Integer.parseInt(directory.getName()));
-            System.out.println();
             Stacktrace stackTrace = new Stacktrace();
+            System.out.println("STACKTRACE : " + directory.getName());
             stackTrace.fill(directory.listFiles()[0], Integer.parseInt(directory.getName()));
             this.add(stackTrace);
         }
