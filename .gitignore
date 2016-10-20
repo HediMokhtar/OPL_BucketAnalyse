@@ -15,6 +15,8 @@ hs_err_pid*
 # User-specific stuff:
 .idea/workspace.xml
 .idea/tasks.xml
+.idea/*
+*.iml
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids
