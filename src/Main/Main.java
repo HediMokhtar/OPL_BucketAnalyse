@@ -1,9 +1,11 @@
 package Main;
 
 import Model.Bucket;
+import Model.Stacktrace;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 
 /**
@@ -37,5 +39,22 @@ public class Main {
         System.out.println("Stacktrace NOT OK : " + Tools.round(COUNT_TOTAL_STACKTRACE-COUNT_TOTAL_STACKTRACE_OK, 0));
 
         //TODO Boucle création thread
+        final CountDownLatch latch = new CountDownLatch(buckets.size());
+        for(File stacktraceFile : new File(PATH_BUCKETS_TESTING).listFiles()) {
+            Stacktrace stacktrace = new Stacktrace();
+            stacktrace.fill(stacktraceFile, Integer.parseInt(stacktraceFile.getName().substring(0, stacktraceFile.getName().length()-4)));
+            for(Bucket bucket : buckets)
+            {
+                    Thread thread = new Thread(new MatchStacktraceToBucket(stacktrace, bucket, latch));
+                    thread.start();
+            }
+        }
+
+        try{
+            latch.await();
+            System.out.println("All analyze of each bucket is done");
+        }catch(InterruptedException ie){
+            ie.printStackTrace();
+        }
     }
 }
