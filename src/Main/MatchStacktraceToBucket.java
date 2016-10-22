@@ -45,7 +45,7 @@ public class MatchStacktraceToBucket implements Runnable {
             isMatched = true;
 
         if(isMatched)
-            System.out.println(stacktrace.getId() + " -> " + bucket.getId());
+            System.out.println(stacktrace.getId() + " -> " + bucket.getBucketNumber());
 
 
         latch.countDown();

@@ -17,14 +17,14 @@ public class Main {
     public static float COUNT_TOTAL_SUBSTACKTRACE_OK = 0;
     public static float COUNT_TOTAL_STACKTRACE = 0;
     public static float COUNT_TOTAL_STACKTRACE_OK = 0;
-    public static String PATH_BUCKETS_TRAINING = "./nautilus/nautilus-training";
-    public static String PATH_BUCKETS_TESTING = "./nautilus/nautilus-testing";
+    public static final String PATH_BUCKETS_TRAINING = "./nautilus/nautilus-training";
+    public static final String PATH_BUCKETS_TESTING = "./nautilus/nautilus-testing";
 
     public static void main (String [] arg){
 
         ArrayList<Bucket> buckets = new ArrayList<>();
 
-        // Pour chaque dossier de Stacktrace
+        //On recupere toute les donnees du modele d'apprentissage aux sein d'objet
         for(File directory : new File(PATH_BUCKETS_TRAINING).listFiles()) {
             Bucket bucket = new Bucket();
             System.out.println("BUCKET : " + directory.getName());
@@ -38,7 +38,7 @@ public class Main {
         System.out.println("Stacktrace : " + Tools.round(COUNT_TOTAL_STACKTRACE, 0));
         System.out.println("Stacktrace NOT OK : " + Tools.round(COUNT_TOTAL_STACKTRACE-COUNT_TOTAL_STACKTRACE_OK, 0));
 
-        //TODO Boucle création thread
+        //TODO Boucle creation thread
         final CountDownLatch latch = new CountDownLatch(buckets.size());
         for(File stacktraceFile : new File(PATH_BUCKETS_TESTING).listFiles()) {
             Stacktrace stacktrace = new Stacktrace();
@@ -55,6 +55,6 @@ public class Main {
             System.out.println("All analyze of each bucket is done");
         }catch(InterruptedException ie){
             ie.printStackTrace();
-        }
+        } 
     }
 }
