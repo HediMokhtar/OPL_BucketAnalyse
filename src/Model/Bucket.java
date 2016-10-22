@@ -13,6 +13,8 @@ import static Main.Tools.getKeyOfMaxValue;
 public class Bucket extends ArrayList<Stacktrace> {
 
     private int bucketNumber;
+    private Buckets buckets;
+    
     private HashMap<String, Integer> functionNameRanking = new HashMap<String,Integer>();
     private String functionNameProperty;
     private HashMap<String, Integer> fileNameRanking = new HashMap<String,Integer>();
@@ -21,16 +23,18 @@ public class Bucket extends ArrayList<Stacktrace> {
     private String libraryNameProperty;
 
 
-    public Bucket() {
-    }
     
+    public Bucket(Buckets buckets) {
+    	super();
+    	this.buckets = buckets;
+    }
     
     public int getBucketNumber() {
         return bucketNumber;
     }
-
-    public void setBucketNumber(int bucketNumber) {
-        this.bucketNumber = bucketNumber;
+    
+    public Buckets getBuckets(){
+    	return this.buckets;
     }
     
     public HashMap<String, Integer> getFunctionNameRanking(){
@@ -73,7 +77,7 @@ public class Bucket extends ArrayList<Stacktrace> {
         
         for(File stackTraceDirectory : directoryOfStacktraces)
         {
-            Stacktrace stackTrace = new Stacktrace();
+            Stacktrace stackTrace = new Stacktrace(this);
             System.out.println("STACKTRACE : " + stackTraceDirectory.getName());
             stackTrace.fill(getStackTrace(stackTraceDirectory), Integer.parseInt(stackTraceDirectory.getName()));
             this.add(stackTrace);

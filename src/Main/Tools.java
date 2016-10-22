@@ -12,6 +12,7 @@ import java.util.Map;
  * Created by Junior on 19-10-16.
  */
 public class Tools {
+	
     static public String readFile(String path, Charset encoding) throws IOException
     {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
