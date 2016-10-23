@@ -51,7 +51,10 @@ public class Stacktrace extends ArrayList<SubStackTrace>{
     }
     
     /**
-     * 
+     * Remplissage de l'arrayList de substacktrace
+     * 1) On coupe la stacktrace avec le caractere # pour obtenir chaque exception
+     * 2) Sur chaque exception on recupere le nombre de l'exception
+     * 3) si le reste de la chaine n'est pas nul notre substacktrace est crée
      * @param fileStacktrace
      * @param stackTraceNumber
      */
@@ -64,8 +67,7 @@ public class Stacktrace extends ArrayList<SubStackTrace>{
             	this.getBuckets().incrementTotalStackTrace();
             	this.getBuckets().incrementTotalOkStackTrace();
             }
-            String[] splitedStrackTrace = null;
-            splitedStrackTrace = stacktrace.split(Pattern.quote("#"));
+            String[] splitedStrackTrace = stacktrace.split(Pattern.quote("#"));
             ArrayList<String> splitedStrackTraceList = new ArrayList<String>(Arrays.asList(splitedStrackTrace));
             if(splitedStrackTraceList.get(0).equalsIgnoreCase(""))
                 splitedStrackTraceList.remove(0);

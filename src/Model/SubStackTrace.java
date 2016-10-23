@@ -21,32 +21,16 @@ public class SubStackTrace extends ArrayList<String>{
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getFileName() {
         return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
     }
 
     public String getFunctionName() {
         return functionName;
     }
 
-    public void setFunctionName(String functionName) {
-        this.functionName = functionName;
-    }
-
     public String getLibraryName() {
         return libraryName;
-    }
-
-    public void setLibraryName(String libraryName) {
-        this.libraryName = libraryName;
     }
 
     public SubStackTrace() {
@@ -103,7 +87,7 @@ public class SubStackTrace extends ArrayList<String>{
         boolean firstLocal = false;
         String string = "";
 
-        //Cette boucle et tout le traitement fait permet de remettre correctement un string trop découpé par le spit précédent.
+        //Cette boucle et tout le traitement fait permet de remettre correctement un string trop decoupe par le spit precedent.
         for(String subStackTraceLine : splitedSubStackTrace) {
             if(subStackTraceLine.length() <= 2) {
                 if(first)

@@ -33,6 +33,10 @@ public class Bucket extends ArrayList<Stacktrace> {
         return bucketNumber;
     }
     
+    public void setBucketNumber(int number){
+    	this.bucketNumber = number;
+    }
+    
     public Buckets getBuckets(){
     	return this.buckets;
     }
@@ -132,7 +136,8 @@ public class Bucket extends ArrayList<Stacktrace> {
     	else{
     		return rankMap.get(name);
     	}
-    	
-    	
     }
+    
+    
+    
 }

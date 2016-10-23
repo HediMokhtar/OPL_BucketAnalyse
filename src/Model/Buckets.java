@@ -27,6 +27,9 @@ public class Buckets extends ArrayList<Bucket>{
             this.add(bucket);
         }
 	}
+	
+	public Buckets(){
+	}
 
 
 	public float getTotalSubstacktrace() {
