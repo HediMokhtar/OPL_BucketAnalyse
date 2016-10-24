@@ -30,10 +30,14 @@ public class Tools {
 
         for (Map.Entry<String, Integer> entry : map.entrySet())
         {
-            if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0)
+            if (entry != null && (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0)) {
                 maxEntry = entry;
+            }
         }
 
-        return maxEntry.getKey();
+        if(maxEntry != null)
+            return maxEntry.getKey();
+        else
+            return null;
     }
 }
