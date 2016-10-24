@@ -1,4 +1,4 @@
-package Controller;
+package Analyzer;
 
 import Model.Bucket;
 import Model.Buckets;
@@ -7,12 +7,11 @@ import Model.SubStackTrace;
 
 public class NaiveAnalyzer extends Analyzer{
 
-	private Buckets buckets;
-	
-	public NaiveAnalyzer(Buckets buckets){
-		this.buckets = buckets;
+
+	public NaiveAnalyzer(Buckets buckets) {
+		super(buckets);
 	}
-	
+
 	public Bucket searchBucket(Stacktrace stackTrace){
 		for(Bucket bucket : this.buckets){
 			if(stackTraceMatch(stackTrace, bucket)){

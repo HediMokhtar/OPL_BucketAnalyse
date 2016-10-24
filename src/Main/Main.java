@@ -1,10 +1,10 @@
 package Main;
 
-import java.io.File;
-
-import Controller.NaiveAnalyzer;
+import Analyzer.NaiveAnalyzer;
 import Model.Buckets;
 import Model.Stacktrace;
+
+import java.io.File;
 
 
 /**

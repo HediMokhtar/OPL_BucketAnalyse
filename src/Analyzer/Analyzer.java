@@ -1,12 +1,19 @@
-package Controller;
+package Analyzer;
+
+import Model.Bucket;
+import Model.Buckets;
+import Model.Stacktrace;
 
 import java.io.File;
 
-import Model.Bucket;
-import Model.Stacktrace;
-
 public abstract class Analyzer {
-	
+
+	protected Buckets buckets;
+
+	public Analyzer(Buckets buckets){
+		this.buckets = buckets;
+	}
+
 	public abstract Bucket searchBucket(Stacktrace stackTrace);
 		
 	public String monperrusEvalPrinter(File stackTraceFile, Stacktrace stackTrace){
