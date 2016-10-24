@@ -11,9 +11,9 @@ import java.util.regex.Pattern;
 public class SubStackTrace extends ArrayList<String>{
 
     private String id;
-    private String functionName;
-    private String fileName;
-    private String libraryName;
+    private String functionName = null;
+    private String fileName = null;
+    private String libraryName = null;
 	private Stacktrace stacktrace;
 	private boolean haveStackTrace;
 
@@ -147,7 +147,7 @@ public class SubStackTrace extends ArrayList<String>{
             //System.out.println("FUNCTION : " + functionName + " ----- FILE : " + fileName  + " ----- LIBRARY : " + libraryName + "\n");
         }
         else {
-            System.out.println("Regex fail for the the SubStacktrace first : " + splitedSubStackTrace[0]);
+            //System.out.println("Regex fail for the the SubStacktrace first : " + splitedSubStackTrace[0]);
             if(this.haveStackTrace == true){
             	this.getBuckets().decrementTotalOkSubstacktrace();
             	this.getStackTrace().notOk();

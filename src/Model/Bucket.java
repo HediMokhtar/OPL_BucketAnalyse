@@ -1,10 +1,10 @@
 package Model;
 
+import Main.Tools;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static Main.Tools.getKeyOfMaxValue;
 
 /**
  * Created by Junior on 19-10-16.
@@ -16,11 +16,11 @@ public class Bucket extends ArrayList<Stacktrace> {
     private Buckets buckets;
     
     private HashMap<String, Integer> functionNameRanking = new HashMap<String,Integer>();
-    private String functionNameProperty;
+    private ArrayList<String> functionNameProperty;
     private HashMap<String, Integer> fileNameRanking = new HashMap<String,Integer>();
-    private String fileNameProperty;
+    private ArrayList<String> fileNameProperty;
     private HashMap<String, Integer> libraryNameRanking = new HashMap<String,Integer>();
-    private String libraryNameProperty;
+    private ArrayList<String> libraryNameProperty;
 
 
     
@@ -47,32 +47,36 @@ public class Bucket extends ArrayList<Stacktrace> {
     }
     
     public HashMap<String, Integer> getFunctionNameRanking(){
-    	return this.functionNameRanking;	
+    	return this.functionNameRanking;
     }
     
     public HashMap<String, Integer> getFileNameRanking(){
-    	return this.fileNameRanking;	
+    	return this.fileNameRanking;
     }
     
     public HashMap<String, Integer> getLibraryNameRanking(){
-    	return this.libraryNameRanking;	
+    	return this.libraryNameRanking;
     }
 
-    public synchronized String getFunctionNameProperty(){
-        if(functionNameProperty == null && functionNameRanking != null)
-            functionNameProperty = getKeyOfMaxValue(functionNameRanking);
+    public synchronized ArrayList<String> getFunctionNameProperty(){
+        functionNameRanking.remove("?? ");
+        if(functionNameProperty == null && functionNameRanking != null) {
+            functionNameProperty = new ArrayList<String>(Tools.sortByValue(functionNameRanking).keySet());;
+        }
         return functionNameProperty;
     }
 
-    public synchronized String getFileNameProperty(){
-        if(fileNameProperty == null && fileNameRanking != null)
-            fileNameProperty = getKeyOfMaxValue(fileNameRanking);
+    public synchronized ArrayList<String> getFileNameProperty(){
+        if(fileNameProperty == null && fileNameRanking != null) {
+            fileNameProperty = new ArrayList<String>(Tools.sortByValue(fileNameRanking).keySet());;
+        }
         return fileNameProperty;
     }
 
-    public synchronized String getLibraryNameProperty(){
-        if(libraryNameProperty == null && libraryNameRanking != null)
-            libraryNameProperty = getKeyOfMaxValue(libraryNameRanking);
+    public synchronized ArrayList<String> getLibraryNameProperty(){
+        if(libraryNameProperty == null && libraryNameRanking != null) {
+            libraryNameProperty = new ArrayList<String>(Tools.sortByValue(libraryNameRanking).keySet());;
+        }
         return libraryNameProperty;
     }
 
@@ -91,6 +95,8 @@ public class Bucket extends ArrayList<Stacktrace> {
             stackTrace.fill(getStackTrace(stackTraceDirectory), stackTraceDirectory.getName());
             this.add(stackTrace);
         }
+
+        System.out.println("Bucket : " + this.bucketNumber + "  --  Size : " + functionNameRanking.size() + " - " + fileNameRanking.size() + " - " + libraryNameRanking.size());
     }
     
     private static File getStackTrace(File bucket){
@@ -114,34 +120,40 @@ public class Bucket extends ArrayList<Stacktrace> {
      */
     public boolean add(Stacktrace stackTrace){
     	String currentFunctionName;
-    	String currentfileName;
+    	String currentFileName;
     	String currentLibraryName;
     	
     	for(SubStackTrace subStackTrace : stackTrace){
-    		
     		currentFunctionName = subStackTrace.getFunctionName();
-        	currentfileName = subStackTrace.getFileName();
+        	currentFileName = subStackTrace.getFileName();
         	currentLibraryName = subStackTrace.getLibraryName();
 
-            if(currentFunctionName != null && !currentFunctionName.equalsIgnoreCase("null"))
-    		    this.functionNameRanking.put(currentFunctionName, keyValue(functionNameRanking,currentFunctionName) + 1);
-            if(currentfileName != null && !currentfileName.equalsIgnoreCase("null"))
-    		    this.fileNameRanking.put(currentfileName, keyValue(fileNameRanking,currentfileName) + 1);
-            if(currentLibraryName != null && !currentLibraryName.equalsIgnoreCase("null"))
-    		    this.libraryNameRanking.put(currentLibraryName, keyValue(libraryNameRanking,currentLibraryName) + 1);
+            //System.out.println("CURRENT FUNCTION NAME : " + currentFunctionName);
+            //System.out.println("CURRENT FILE NAME : " + currentFileName);
+            //System.out.println("CURRENT LIBRARY NAME : " + currentLibraryName);
+
+            if(currentFunctionName != null)
+            {
+                int count = functionNameRanking.containsKey(currentFunctionName) ? functionNameRanking.get(currentFunctionName) : 0;
+                functionNameRanking.put(currentFunctionName, count + 1);
+            }
+
+            if(currentFileName != null)
+            {
+                int count = fileNameRanking.containsKey(currentFileName) ? fileNameRanking.get(currentFileName) : 0;
+                fileNameRanking.put(currentFileName, count + 1);
+            }
+
+            if(currentLibraryName != null)
+            {
+                int count = libraryNameRanking.containsKey(currentLibraryName) ? libraryNameRanking.get(currentLibraryName) : 0;
+                libraryNameRanking.put(currentLibraryName, count + 1);
+            }
     	}
 
     	return super.add(stackTrace);
     }
-    
-    private int keyValue(HashMap<String, Integer> rankMap, String name){
-    	if (rankMap.get(name) == null){
-    		return 0;
-    	}
-    	else{
-    		return rankMap.get(name);
-    	}
-    }
+
     
     
     

@@ -28,7 +28,7 @@ public class Stacktrace extends ArrayList<SubStackTrace>{
     public Stacktrace() {
     	super();
         first = true;
-        this.haveBucket = true;
+        this.haveBucket = false;
     }
     
     public Stacktrace(Bucket bucket) {

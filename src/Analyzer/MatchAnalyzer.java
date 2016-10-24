@@ -5,12 +5,15 @@ import Model.Buckets;
 import Model.Stacktrace;
 import Model.SubStackTrace;
 
+import java.util.HashMap;
+
 /**
  * Created by Junior on 24-10-16.
  */
-public class MatchAnalyzer extends Analyzer{
+public class MatchAnalyzer extends Analyzer {
 
     private boolean isMatched = false;
+    private int deepOfMatch = 7;
 
     public MatchAnalyzer(Buckets buckets) {
         super(buckets);
@@ -21,24 +24,64 @@ public class MatchAnalyzer extends Analyzer{
 
         Bucket bucketToReturn = new Bucket("0");
 
-        boolean isFunctionMatched = false;
-        boolean isLibraryMatched = false;
-        boolean isFileNameMatched = false;
+        int functionMatchLimitOk = 5;
+        int fileMatchLimitOk = 5;
+        int libraryMatchLimitOk = 5;
 
-        for(Bucket bucket : this.buckets){
-            for(SubStackTrace subStackTrace : stackTrace)
-            {
-                if (subStackTrace.getFunctionName() != null && subStackTrace.getFunctionName().equalsIgnoreCase(bucket.getFunctionNameProperty()))
-                    isFunctionMatched = true;
-                if (subStackTrace.getFileName() != null && subStackTrace.getFileName().equalsIgnoreCase(bucket.getFileNameProperty()))
-                    isFileNameMatched = true;
-                if (subStackTrace.getLibraryName() != null &&  subStackTrace.getLibraryName().equalsIgnoreCase(bucket.getLibraryNameProperty()))
-                    isLibraryMatched = true;
+        int functionMatchCount = 0;
+        int fileMatchCount = 0;
+        int libraryMatchCount = 0;
+
+        for (Bucket bucket : this.buckets) {
+
+            //Main.functionMap.put(bucket.getFunctionNameProperty(), keyValue(Main.functionMap, bucket.getFunctionNameProperty()) +1);
+            //Main.fileMap.put(bucket.getFileNameProperty(), keyValue(Main.fileMap, bucket.getFileNameProperty()) +1);
+            //Main.libraryMap.put(bucket.getLibraryNameProperty(), keyValue(Main.libraryMap, bucket.getLibraryNameProperty()) +1);
+
+            for (SubStackTrace subStackTrace : stackTrace) {
+
+
+                //System.out.println(bucket.getFunctionNameProperty());
+                if (bucket.getFunctionNameProperty() != null && bucket.getFunctionNameProperty().size() >= deepOfMatch) {
+                    for (int i = 0; i < deepOfMatch; i++) {
+                        if (subStackTrace.getFunctionName() != null && subStackTrace.getFunctionName().equalsIgnoreCase(bucket.getFunctionNameProperty().get(i)))
+                            functionMatchCount++;
+                    }
+                }
+
+
+                //System.out.println(bucket.getFileNameProperty());
+                if (bucket.getFileNameProperty() != null && bucket.getFileNameProperty().size() >= deepOfMatch) {
+                    for (int i = 0; i < deepOfMatch; i++) {
+                        if (subStackTrace.getFileName() != null && subStackTrace.getFileName().equalsIgnoreCase(bucket.getFileNameProperty().get(i)))
+                            fileMatchCount++;
+                    }
+                }
+
+
+                //System.out.println(bucket.getLibraryNameProperty());
+                if (bucket.getLibraryNameProperty() != null && bucket.getLibraryNameProperty().size() >= deepOfMatch) {
+                    for (int i = 0; i < deepOfMatch; i++) {
+                        if (subStackTrace.getLibraryName() != null && subStackTrace.getLibraryName().equalsIgnoreCase(bucket.getLibraryNameProperty().get(i)))
+                            libraryMatchCount++;
+                    }
+                }
+
+                if (functionMatchCount >= functionMatchLimitOk && fileMatchCount >= fileMatchLimitOk || libraryMatchCount >= libraryMatchLimitOk) {
+                    return bucketToReturn = bucket;
+                }
             }
-            if(isFunctionMatched && isFileNameMatched && isLibraryMatched)
-                bucketToReturn = bucket;
         }
 
         return bucketToReturn;
+    }
+
+
+    private int keyValue(HashMap<String, Integer> rankMap, String name) {
+        if (rankMap.get(name) == null) {
+            return 0;
+        } else {
+            return rankMap.get(name);
+        }
     }
 }
