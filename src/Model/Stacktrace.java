@@ -28,7 +28,7 @@ public class Stacktrace extends ArrayList<SubStackTrace>{
     public Stacktrace() {
     	super();
         first = true;
-        this.haveBucket = false;
+        this.haveBucket = true;
     }
     
     public Stacktrace(Bucket bucket) {
@@ -99,7 +99,9 @@ public class Stacktrace extends ArrayList<SubStackTrace>{
 
     public void notOk()
     {
-        if(first & this.haveBucket == true)
-        	this.getBuckets().decrementTotalOkStackTrace();
+        if(first && this.haveBucket == true) {
+            this.getBuckets().decrementTotalOkStackTrace();
+            first = false;
+        }
     }
 }

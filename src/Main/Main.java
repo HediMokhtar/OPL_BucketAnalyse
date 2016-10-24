@@ -1,7 +1,7 @@
 package Main;
 
 import Analyzer.IAnalyzer;
-import Analyzer.NaiveAnalyzer;
+import Analyzer.MatchAnalyzer;
 import Model.Buckets;
 import Model.Stacktrace;
 
@@ -30,7 +30,7 @@ public class Main {
         System.out.println("TESTING");
         System.out.println("=====================================================");
         
-        IAnalyzer analyzer = new NaiveAnalyzer(buckets);
+        IAnalyzer analyzer = new MatchAnalyzer(buckets);
 
         Stacktrace stacktraceTesting;
         for(File stackTraceTest : stacktraceFiles) {

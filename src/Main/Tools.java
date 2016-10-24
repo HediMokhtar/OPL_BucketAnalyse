@@ -36,9 +36,6 @@ public class Tools {
             }
         }
 
-        if(maxEntry != null)
-            return maxEntry.getKey();
-        else
-            return null;
+        return maxEntry.getKey();
     }
 }

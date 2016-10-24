@@ -82,7 +82,7 @@ public class SubStackTrace extends ArrayList<String>{
         this.id = id;
 
         String[] splitedSubStackTrace = null;
-        splitedSubStackTrace = subStackTrace.split("(?=\\t{0,500}.{0,500} = )");
+        splitedSubStackTrace = subStackTrace.split("(?=\\t\\t{0,500}.{0,500} = |\\t{0,500}.{0,500} = )");
         boolean first = true;
         boolean firstLocal = false;
         String string = "";
@@ -117,13 +117,14 @@ public class SubStackTrace extends ArrayList<String>{
 
 
         // Cette regex permet de récupérer les infos de nom de fonction + nom de fichier avec numéro de ligne ou nom de librairie + le cas particulier de ligns terminanant par "in ?? ()"
-        Pattern pattern = Pattern.compile(" (.*)\\(.*\\).*at (.*.:[0-9]*)| in (.*)\\(.*\\) from (.*)|( in .*)\\(.*\\)|.* in \\?\\? \\(\\)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
+        Pattern pattern = Pattern.compile(" (.*)\\(.*\\).*at (.*.:[0-9]*)| in (.*)\\(.*\\) from (.+?(?=No )|.*)|( in \\?\\? .*)| in (.*)\\(.+?(?=No )", Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
         Matcher matcher = pattern.matcher(splitedSubStackTrace[0]);
         if(this.haveStackTrace == true){
         	this.getBuckets().incrementTotalSubstacktrace();
         	this.getBuckets().incrementTotalOkSubstacktrace();
         }
-        //System.out.print(splitedSubStackTrace[0]);
+
+        //System.out.println(splitedSubStackTrace[0]);
         if(matcher.find()) {
             // Si on a à faire a Fonction + Fichier
             if( matcher.group(1) != null)
@@ -132,12 +133,16 @@ public class SubStackTrace extends ArrayList<String>{
                 if(functionName.split(Pattern.quote(" in ")).length > 1)
                     functionName = functionName.split(Pattern.quote(" in "))[1];
                 this.fileName =  matcher.group(2);
+
+                //System.out.println("-- FUNCTION : " + functionName + " ----- FILE : " + fileName + "\n");
             }
             // Si on a à faire a Fonction + Librairie
             else if(matcher.group(3) != null)
             {
                 this.functionName = matcher.group(3);
                 this.libraryName = matcher.group(4);
+
+                //System.out.println("-- FUNCTION : " + functionName + " ----- LIBRARY : " + libraryName + "\n");
             }
             //System.out.println("FUNCTION : " + functionName + " ----- FILE : " + fileName  + " ----- LIBRARY : " + libraryName + "\n");
         }

@@ -38,9 +38,6 @@ public class Buckets extends ArrayList<Bucket>{
 	public void incrementTotalSubstacktrace() {
 		this.totalSubstacktrace++;
 	}
-	public void decrementTotalSubstacktrace() {
-		this.totalSubstacktrace--;
-	}
 
 	
 	public float getTotalOkSubstacktrace() {
@@ -59,9 +56,6 @@ public class Buckets extends ArrayList<Bucket>{
 	}
 	public void incrementTotalStackTrace() {
 		this.totalStackTrace++;
-	}
-	public void decrementTotalStackTrace() {
-		this.totalStackTrace--;
 	}
 
 	
