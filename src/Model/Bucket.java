@@ -9,9 +9,12 @@ import static Main.Tools.getKeyOfMaxValue;
 /**
  * Created by Junior on 19-10-16.
  */
+@SuppressWarnings("serial")
 public class Bucket extends ArrayList<Stacktrace> {
 
-    private int id;
+    private int bucketNumber;
+    private Buckets buckets;
+    
     private HashMap<String, Integer> functionNameRanking = new HashMap<String,Integer>();
     private String functionNameProperty;
     private HashMap<String, Integer> fileNameRanking = new HashMap<String,Integer>();
@@ -20,16 +23,22 @@ public class Bucket extends ArrayList<Stacktrace> {
     private String libraryNameProperty;
 
 
-    public Bucket() {
+    
+    public Bucket(Buckets buckets) {
+    	super();
+    	this.buckets = buckets;
     }
     
-    
-    public int getId() {
-        return id;
+    public int getBucketNumber() {
+        return bucketNumber;
     }
-
-    public void setId(int id) {
-        this.id = id;
+    
+    public void setBucketNumber(int number){
+    	this.bucketNumber = number;
+    }
+    
+    public Buckets getBuckets(){
+    	return this.buckets;
     }
     
     public HashMap<String, Integer> getFunctionNameRanking(){
@@ -62,17 +71,25 @@ public class Bucket extends ArrayList<Stacktrace> {
         return libraryNameProperty;
     }
 
-    public void fill(File[] directoryStacktrace, int id) {
-        this.id = id;
-
-        // Pour chaque dossier de Stacktrace
-        for(File directory : directoryStacktrace)
+    /**
+     * Remplissage d'un bucket 
+     * @param directoryOfStacktraces tout les dossiers au sein du Bucket
+     * @param bucketNumber le nom du bucket
+     */
+    public void fill(File[] directoryOfStacktraces, int bucketNumber) {
+        this.bucketNumber = bucketNumber;
+        
+        for(File stackTraceDirectory : directoryOfStacktraces)
         {
-            Stacktrace stackTrace = new Stacktrace();
-            System.out.println("STACKTRACE : " + directory.getName());
-            stackTrace.fill(directory.listFiles()[0], Integer.parseInt(directory.getName()));
+            Stacktrace stackTrace = new Stacktrace(this);
+            System.out.println("STACKTRACE : " + stackTraceDirectory.getName());
+            stackTrace.fill(getStackTrace(stackTraceDirectory), Integer.parseInt(stackTraceDirectory.getName()));
             this.add(stackTrace);
         }
+    }
+    
+    private static File getStackTrace(File bucket){
+    	return bucket.listFiles()[0];
     }
     
     public boolean containFunctionName(String functionName){
@@ -119,7 +136,8 @@ public class Bucket extends ArrayList<Stacktrace> {
     	else{
     		return rankMap.get(name);
     	}
-    	
-    	
     }
+    
+    
+    
 }

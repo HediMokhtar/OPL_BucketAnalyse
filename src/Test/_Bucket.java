@@ -1,16 +1,18 @@
 package Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 import Model.Bucket;
+import Model.Buckets;
 import Model.Stacktrace;
 import Model.SubStackTrace;
 
 public class _Bucket {
 	
-	Bucket bucket = new Bucket();
+	Buckets buckets = new Buckets();
+	Bucket bucket = new Bucket(buckets);
 	
 	String functionName = "_poppler_document_new_from_pdfdoc";
 	String fileName = "poppler-document.cc:89";
