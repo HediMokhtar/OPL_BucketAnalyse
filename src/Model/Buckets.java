@@ -1,9 +1,9 @@
 package Model;
 
+import Main.Tools;
+
 import java.io.File;
 import java.util.ArrayList;
-
-import Main.Tools;
 
 @SuppressWarnings("serial")
 public class Buckets extends ArrayList<Bucket>{
@@ -23,7 +23,7 @@ public class Buckets extends ArrayList<Bucket>{
 		for(File directory : new File(directoryBucketPath).listFiles()) {
             Bucket bucket = new Bucket(this);
             System.out.println("BUCKET : " + directory.getName());
-            bucket.fill(directory.listFiles(), Integer.parseInt(directory.getName()));
+            bucket.fill(directory.listFiles(), directory.getName());
             this.add(bucket);
         }
 	}

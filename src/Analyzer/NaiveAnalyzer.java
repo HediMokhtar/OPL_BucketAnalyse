@@ -13,12 +13,15 @@ public class NaiveAnalyzer extends Analyzer{
 	}
 
 	public Bucket searchBucket(Stacktrace stackTrace){
+
+		Bucket bucketToReturn = new Bucket("0");
+
 		for(Bucket bucket : this.buckets){
 			if(stackTraceMatch(stackTrace, bucket)){
-				return bucket;
+				return bucketToReturn = bucket;
 			}
 		}
-		return new Bucket(buckets);
+		return bucketToReturn;
 	}
 	
 	private static boolean stackTraceMatch(Stacktrace stackTrace, Bucket bucket){

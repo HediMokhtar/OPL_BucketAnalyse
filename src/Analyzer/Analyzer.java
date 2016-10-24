@@ -6,9 +6,9 @@ import Model.Stacktrace;
 
 import java.io.File;
 
-public abstract class Analyzer {
+public abstract class Analyzer implements IAnalyzer {
 
-	protected Buckets buckets;
+	 Buckets buckets;
 
 	public Analyzer(Buckets buckets){
 		this.buckets = buckets;
@@ -23,5 +23,4 @@ public abstract class Analyzer {
 		result +=  this.searchBucket(stackTrace).getBucketNumber() + "\n";
 		return result;
 	}
-	
 }

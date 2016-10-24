@@ -10,14 +10,14 @@ import java.util.regex.Pattern;
 @SuppressWarnings("serial")
 public class SubStackTrace extends ArrayList<String>{
 
-    private int id;
+    private String id;
     private String functionName;
     private String fileName;
     private String libraryName;
 	private Stacktrace stacktrace;
 	private boolean haveStackTrace;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -38,7 +38,7 @@ public class SubStackTrace extends ArrayList<String>{
     	this.haveStackTrace = false;
     }
     
-    public SubStackTrace(int id, String functionName, String fileName, String libraryName) {
+    public SubStackTrace(String id, String functionName, String fileName, String libraryName) {
     	this.id = id;
     	this.functionName = functionName;
     	this.fileName = fileName;
@@ -78,7 +78,7 @@ public class SubStackTrace extends ArrayList<String>{
             return Boolean.parseBoolean(null);
     }
 
-    public void fill(String subStackTrace, int id) {
+    public void fill(String subStackTrace, String id) {
         this.id = id;
 
         String[] splitedSubStackTrace = null;

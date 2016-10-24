@@ -16,12 +16,12 @@ import java.util.regex.Pattern;
 @SuppressWarnings("serial")
 public class Stacktrace extends ArrayList<SubStackTrace>{
 
-    private int stackTraceNumber;
+    private String stackTraceNumber;
     private boolean first = true;
     private Bucket bucket;
     private boolean haveBucket;
     
-    public int getStackTraceNumber() {
+    public String getStackTraceNumber() {
         return stackTraceNumber;
     }
 
@@ -54,11 +54,11 @@ public class Stacktrace extends ArrayList<SubStackTrace>{
      * Remplissage de l'arrayList de substacktrace
      * 1) On coupe la stacktrace avec le caractere # pour obtenir chaque exception
      * 2) Sur chaque exception on recupere le nombre de l'exception
-     * 3) si le reste de la chaine n'est pas nul notre substacktrace est crée
+     * 3) si le reste de la chaine n'est pas nul notre substacktrace est crï¿½e
      * @param fileStacktrace
      * @param stackTraceNumber
      */
-    public void fill(File fileStacktrace, int stackTraceNumber) {
+    public void fill(File fileStacktrace, String stackTraceNumber) {
         this.stackTraceNumber = stackTraceNumber;
 
         try {
@@ -73,12 +73,12 @@ public class Stacktrace extends ArrayList<SubStackTrace>{
                 splitedStrackTraceList.remove(0);
 
             for(String subStackTraceString : splitedStrackTraceList) {
-                int idSub = -1;
+                String idSub = "-1";
                 Pattern pattern = Pattern.compile("([0-9]*)");
                 Matcher matcher = pattern.matcher(subStackTraceString);
                 if(matcher.find()) {
                     if(!matcher.group(1) .equalsIgnoreCase(""))
-                        idSub = Integer.parseInt(matcher.group(1));
+                        idSub = matcher.group(1);
                     else
                         System.out.println(subStackTraceString);
                 }
