@@ -1,12 +1,11 @@
 package Analyzer;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import Model.Bucket;
 import Model.Stacktrace;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Junior on 24-10-16.
@@ -22,18 +21,12 @@ public interface IAnalyzer {
     
     /**
      * Transform the analyze result in a String corresponding to Mister Monperrus expectations
-     * @param stackTraceFile the stackTraceFiles in input
-     * @param stackTrace
+     * @param stackTraceFiles the stackTraceFiles in input
      * @return
      */
-    String monperrusEvalPrinter(File stackTraceFile, Stacktrace stackTrace);
-    
-    void createAnalyzeResultFile(File stackTraceFile, Stacktrace stackTrace) throws IOException;
-    
-   /**
-    * 
-    * @return
-    
-    HashMap<String, ArrayList<String>> getAnalyzeResults(); 
-    */
+    ArrayList<String> monperrusEvalPrinter(File [] stackTraceFiles);
+
+    void createAnalyzeResultFile(File [] stackTraceFiles);
+
+    HashMap<String, ArrayList<String>> getAnalyzeResults();
 }

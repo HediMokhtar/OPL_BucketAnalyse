@@ -61,21 +61,21 @@ public class Bucket extends ArrayList<Stacktrace> {
     public synchronized ArrayList<String> getFunctionNameProperty(){
         functionNameRanking.remove("?? ");
         if(functionNameProperty == null && functionNameRanking != null) {
-            functionNameProperty = new ArrayList<String>(Tools.sortByValue(functionNameRanking).keySet());;
+            functionNameProperty = new ArrayList<String>(Tools.sortByValue(functionNameRanking).keySet());
         }
         return functionNameProperty;
     }
 
     public synchronized ArrayList<String> getFileNameProperty(){
         if(fileNameProperty == null && fileNameRanking != null) {
-            fileNameProperty = new ArrayList<String>(Tools.sortByValue(fileNameRanking).keySet());;
+            fileNameProperty = new ArrayList<String>(Tools.sortByValue(fileNameRanking).keySet());
         }
         return fileNameProperty;
     }
 
     public synchronized ArrayList<String> getLibraryNameProperty(){
         if(libraryNameProperty == null && libraryNameRanking != null) {
-            libraryNameProperty = new ArrayList<String>(Tools.sortByValue(libraryNameRanking).keySet());;
+            libraryNameProperty = new ArrayList<String>(Tools.sortByValue(libraryNameRanking).keySet());
         }
         return libraryNameProperty;
     }

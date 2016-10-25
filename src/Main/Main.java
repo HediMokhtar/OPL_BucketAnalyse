@@ -1,9 +1,7 @@
 package Main;
 
-import Analyzer.IAnalyzer;
-import Analyzer.MatchAnalyzerGeneralCount;
+import Analyzer.*;
 import Model.Buckets;
-import Model.Stacktrace;
 
 import java.io.File;
 import java.util.HashMap;
@@ -31,9 +29,10 @@ public class Main {
         File stacktraceFile = new File(PATH_BUCKETS_TESTING);
         File[] stacktraceFiles = stacktraceFile.listFiles();
 
-        //Analyze(new MatchAnalyzerBoolean(buckets), stacktraceFiles);
-        //Analyze(new MatchAnalyzerCount(buckets), stacktraceFiles);
+        Analyze(new MatchAnalyzerBoolean(buckets), stacktraceFiles);
+        Analyze(new MatchAnalyzerCount(buckets), stacktraceFiles);
         Analyze(new MatchAnalyzerGeneralCount(buckets), stacktraceFiles);
+        Analyze(new MatchAnalyzerMapCount(buckets), stacktraceFiles);
     }
 
 
@@ -42,11 +41,10 @@ public class Main {
         System.out.println("=====================================================");
         System.out.println("TESTING with : " + analyzer.getClass());
         System.out.println("=====================================================");
-        Stacktrace stacktraceTesting;
-        for(File stackTraceTest : stacktraceFiles) {
-            stacktraceTesting = new Stacktrace();
-            stacktraceTesting.fill(stackTraceTest, stackTraceTest.getName().substring(0, stackTraceTest.getName().length()-4));
-            System.out.print(analyzer.monperrusEvalPrinter(stackTraceTest, stacktraceTesting));
-        }
+
+        analyzer.createAnalyzeResultFile(stacktraceFiles);
+
+        System.out.println("====================== FINISH =======================");
+
     }
 }
