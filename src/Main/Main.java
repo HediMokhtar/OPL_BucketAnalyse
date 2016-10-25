@@ -2,10 +2,12 @@ package Main;
 
 import Analyzer.IAnalyzer;
 import Analyzer.MatchAnalyzer;
+import Analyzer.NaiveAnalyzer;
 import Model.Buckets;
 import Model.Stacktrace;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 
@@ -21,7 +23,7 @@ public class Main {
     public static HashMap<String, Integer> fileMap = new HashMap<String,Integer>();
     public static HashMap<String, Integer> libraryMap = new HashMap<String,Integer>();
 
-    public static void main (String [] arg){
+    public static void main (String [] arg) throws IOException{
 
     	//Creation de l'espace d'entrainement et affichage du resultat de l'assimilation des donnees
     	
@@ -35,7 +37,7 @@ public class Main {
         System.out.println("TESTING");
         System.out.println("=====================================================");
         
-        IAnalyzer analyzer = new MatchAnalyzer(buckets);
+        IAnalyzer analyzer = new NaiveAnalyzer(buckets);
         Stacktrace stacktraceTesting;
 /*
 
@@ -48,7 +50,7 @@ public class Main {
            stacktraceTesting = new Stacktrace();
            stacktraceTesting.fill(stackTraceTest, stackTraceTest.getName().substring(0, stackTraceTest.getName().length()-4));
            System.out.print(analyzer.monperrusEvalPrinter(stackTraceTest, stacktraceTesting));
-
+           analyzer.createAnalyzeResultFile(stackTraceTest, stacktraceTesting);
         }
 //*/
     }
