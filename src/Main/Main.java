@@ -1,13 +1,11 @@
 package Main;
 
 import Analyzer.IAnalyzer;
-import Analyzer.MatchAnalyzer;
-import Analyzer.NaiveAnalyzer;
+import Analyzer.MatchAnalyzerGeneralCount;
 import Model.Buckets;
 import Model.Stacktrace;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 
 
@@ -23,7 +21,7 @@ public class Main {
     public static HashMap<String, Integer> fileMap = new HashMap<String,Integer>();
     public static HashMap<String, Integer> libraryMap = new HashMap<String,Integer>();
 
-    public static void main (String [] arg) throws IOException{
+    public static void main (String [] arg){
 
     	//Creation de l'espace d'entrainement et affichage du resultat de l'assimilation des donnees
     	
@@ -33,25 +31,22 @@ public class Main {
         File stacktraceFile = new File(PATH_BUCKETS_TESTING);
         File[] stacktraceFiles = stacktraceFile.listFiles();
 
-        System.out.println("=====================================================");
-        System.out.println("TESTING");
-        System.out.println("=====================================================");
-        
-        IAnalyzer analyzer = new NaiveAnalyzer(buckets);
-        Stacktrace stacktraceTesting;
-/*
+        //Analyze(new MatchAnalyzerBoolean(buckets), stacktraceFiles);
+        //Analyze(new MatchAnalyzerCount(buckets), stacktraceFiles);
+        Analyze(new MatchAnalyzerGeneralCount(buckets), stacktraceFiles);
+    }
 
-        stacktraceTesting = new Stacktrace();
-        stacktraceTesting.fill(stacktraceFiles[0], stacktraceFiles[0].getName().substring(0, stacktraceFiles[0].getName().length()-4));
-        System.out.print(analyzer.monperrusEvalPrinter(stacktraceFiles[0], stacktraceTesting));
-//*/
-//*
+
+    public static void Analyze (IAnalyzer analyzer, File[] stacktraceFiles)
+    {
+        System.out.println("=====================================================");
+        System.out.println("TESTING with : " + analyzer.getClass());
+        System.out.println("=====================================================");
+        Stacktrace stacktraceTesting;
         for(File stackTraceTest : stacktraceFiles) {
-           stacktraceTesting = new Stacktrace();
-           stacktraceTesting.fill(stackTraceTest, stackTraceTest.getName().substring(0, stackTraceTest.getName().length()-4));
-           System.out.print(analyzer.monperrusEvalPrinter(stackTraceTest, stacktraceTesting));
-           analyzer.createAnalyzeResultFile(stackTraceTest, stacktraceTesting);
+            stacktraceTesting = new Stacktrace();
+            stacktraceTesting.fill(stackTraceTest, stackTraceTest.getName().substring(0, stackTraceTest.getName().length()-4));
+            System.out.print(analyzer.monperrusEvalPrinter(stackTraceTest, stacktraceTesting));
         }
-//*/
     }
 }
