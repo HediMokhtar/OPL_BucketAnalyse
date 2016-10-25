@@ -12,14 +12,16 @@ public class Buckets extends ArrayList<Bucket>{
     private float totalOkSubstacktrace = 0;
     private float totalStackTrace = 0;
     private float totalOkStackTrace = 0;
-	
-	
+
+
 	/**
 	 * Objet de buckets recopiant les buckets du dossier qu'il prend en parametre
 	 * @param directoryBucketPath
 	 */
 	public Buckets(String directoryBucketPath){
 		super();
+
+
 		for(File directory : new File(directoryBucketPath).listFiles()) {
             Bucket bucket = new Bucket(this);
             System.out.println("BUCKET : " + directory.getName());
@@ -27,7 +29,7 @@ public class Buckets extends ArrayList<Bucket>{
             this.add(bucket);
         }
 	}
-	
+
 	public Buckets(){
 	}
 
@@ -39,7 +41,7 @@ public class Buckets extends ArrayList<Bucket>{
 		this.totalSubstacktrace++;
 	}
 
-	
+
 	public float getTotalOkSubstacktrace() {
 		return totalOkSubstacktrace;
 	}
@@ -50,7 +52,7 @@ public class Buckets extends ArrayList<Bucket>{
 		this.totalOkSubstacktrace--;
 	}
 
-	
+
 	public float getTotalStackTrace() {
 		return totalStackTrace;
 	}
@@ -58,7 +60,7 @@ public class Buckets extends ArrayList<Bucket>{
 		this.totalStackTrace++;
 	}
 
-	
+
 	public float getTotalOkStackTrace() {
 		return totalOkStackTrace;
 	}
@@ -68,7 +70,7 @@ public class Buckets extends ArrayList<Bucket>{
 	public void decrementTotalOkStackTrace() {
 		this.totalOkStackTrace--;
 	}
-	
+
 	public String toString(){
 		String result = "";
 		result += "SubStacktrace OK : " + Tools.round((getTotalOkSubstacktrace()/getTotalSubstacktrace()) * 100, 2) + "%" + "\n";
@@ -78,5 +80,36 @@ public class Buckets extends ArrayList<Bucket>{
 		result += "Stacktrace NOT OK : " + Tools.round(getTotalStackTrace()-getTotalOkStackTrace(), 0) + "\n";
 		return result;
 	}
-	
+
+
+	/*
+	public Buckets(String directoryBucketPath){
+		super();
+		bucketsThis = this;
+
+		File[] buckets = new File(directoryBucketPath).listFiles();
+		final CountDownLatch latch = new CountDownLatch(buckets.length);
+
+
+		for(File directory : buckets) {
+			Thread thread = new Thread(new Runnable() {
+				public void run() {
+					Bucket bucket = new Bucket(bucketsThis);
+					bucket.fill(directory.listFiles(), directory.getName());
+					bucketsThis.add(bucket);
+					latch.countDown();;
+				}
+			});
+			thread.start();
+		}
+
+		try{
+			latch.await();
+			System.out.println("All analyze of each bucket is done");
+		}catch(InterruptedException ie) {
+			ie.printStackTrace();
+		}
+	}
+	*/
+
 }

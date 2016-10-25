@@ -5,17 +5,12 @@ import Model.Buckets;
 import Model.Stacktrace;
 import Model.SubStackTrace;
 
-import java.util.HashMap;
-
 /**
- * Created by Junior on 24-10-16.
+ * Created by Junior on 25-10-16.
  */
-public class MatchAnalyzer extends Analyzer {
+public class MatchAnalyzerGeneralCount extends Analyzer {
 
-    private boolean isMatched = false;
-    private int deepOfMatch = 7;
-
-    public MatchAnalyzer(Buckets buckets) {
+    public MatchAnalyzerGeneralCount(Buckets buckets) {
         super(buckets);
     }
 
@@ -24,28 +19,23 @@ public class MatchAnalyzer extends Analyzer {
 
         Bucket bucketToReturn = new Bucket("0");
 
-        int functionMatchLimitOk = 5;
-        int fileMatchLimitOk = 5;
-        int libraryMatchLimitOk = 5;
+        int deepOfMatch = 1;
+        int generalMatchLimit = 2;
 
-        int functionMatchCount = 0;
-        int fileMatchCount = 0;
-        int libraryMatchCount = 0;
 
         for (Bucket bucket : this.buckets) {
 
-            //Main.functionMap.put(bucket.getFunctionNameProperty(), keyValue(Main.functionMap, bucket.getFunctionNameProperty()) +1);
-            //Main.fileMap.put(bucket.getFileNameProperty(), keyValue(Main.fileMap, bucket.getFileNameProperty()) +1);
-            //Main.libraryMap.put(bucket.getLibraryNameProperty(), keyValue(Main.libraryMap, bucket.getLibraryNameProperty()) +1);
+
+            int generalCount = 0;
 
             for (SubStackTrace subStackTrace : stackTrace) {
-
 
                 //System.out.println(bucket.getFunctionNameProperty());
                 if (bucket.getFunctionNameProperty() != null && bucket.getFunctionNameProperty().size() >= deepOfMatch) {
                     for (int i = 0; i < deepOfMatch; i++) {
-                        if (subStackTrace.getFunctionName() != null && subStackTrace.getFunctionName().equalsIgnoreCase(bucket.getFunctionNameProperty().get(i)))
-                            functionMatchCount++;
+                        if (subStackTrace.getFunctionName() != null && subStackTrace.getFunctionName().equalsIgnoreCase(bucket.getFunctionNameProperty().get(i))) {
+                            generalCount++;
+                        }
                     }
                 }
 
@@ -54,7 +44,9 @@ public class MatchAnalyzer extends Analyzer {
                 if (bucket.getFileNameProperty() != null && bucket.getFileNameProperty().size() >= deepOfMatch) {
                     for (int i = 0; i < deepOfMatch; i++) {
                         if (subStackTrace.getFileName() != null && subStackTrace.getFileName().equalsIgnoreCase(bucket.getFileNameProperty().get(i)))
-                            fileMatchCount++;
+                        {
+                            generalCount++;
+                        }
                     }
                 }
 
@@ -63,25 +55,17 @@ public class MatchAnalyzer extends Analyzer {
                 if (bucket.getLibraryNameProperty() != null && bucket.getLibraryNameProperty().size() >= deepOfMatch) {
                     for (int i = 0; i < deepOfMatch; i++) {
                         if (subStackTrace.getLibraryName() != null && subStackTrace.getLibraryName().equalsIgnoreCase(bucket.getLibraryNameProperty().get(i)))
-                            libraryMatchCount++;
+                        {
+                            generalCount++;
+                        }
                     }
                 }
 
-                if (functionMatchCount >= functionMatchLimitOk && fileMatchCount >= fileMatchLimitOk || libraryMatchCount >= libraryMatchLimitOk) {
+                if (generalCount >= generalMatchLimit)
                     return bucketToReturn = bucket;
-                }
             }
         }
 
         return bucketToReturn;
-    }
-
-
-    private int keyValue(HashMap<String, Integer> rankMap, String name) {
-        if (rankMap.get(name) == null) {
-            return 0;
-        } else {
-            return rankMap.get(name);
-        }
     }
 }

@@ -87,7 +87,7 @@ public class Bucket extends ArrayList<Stacktrace> {
      */
     public void fill(File[] directoryOfStacktraces, String bucketNumber) {
         this.bucketNumber = bucketNumber;
-        
+        System.out.println("BUCKET : " + this.bucketNumber);
         for(File stackTraceDirectory : directoryOfStacktraces)
         {
             Stacktrace stackTrace = new Stacktrace(this);
