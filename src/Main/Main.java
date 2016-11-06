@@ -12,8 +12,8 @@ import java.util.HashMap;
  */
 public class Main {
 	
-    public static final String PATH_BUCKETS_TRAINING = "./nautilus/nautilus-training";
-    public static final String PATH_BUCKETS_TESTING = "./nautilus/nautilus-testing";
+    public static final String PATH_BUCKETS_TRAINING = "C:/nautilus/nautilus-training";
+    public static final String PATH_BUCKETS_TESTING = "C:/nautilus/nautilus-testing";
 
     public static HashMap<String, Integer> functionMap = new HashMap<String,Integer>();
     public static HashMap<String, Integer> fileMap = new HashMap<String,Integer>();
@@ -29,10 +29,17 @@ public class Main {
         File stacktraceFile = new File(PATH_BUCKETS_TESTING);
         File[] stacktraceFiles = stacktraceFile.listFiles();
 
-        Analyze(new MatchAnalyzerBoolean(buckets), stacktraceFiles);
-        Analyze(new MatchAnalyzerCount(buckets), stacktraceFiles);
-        Analyze(new MatchAnalyzerGeneralCount(buckets), stacktraceFiles);
-        Analyze(new MatchAnalyzerMapCount(buckets), stacktraceFiles);
+        long startTime = System.currentTimeMillis();
+
+        //Analyze(new MatchAnalyzerBoolean(buckets), stacktraceFiles);
+        //Analyze(new MatchAnalyzerCount(buckets), stacktraceFiles);
+        //Analyze(new MatchAnalyzerGeneralCount(buckets), stacktraceFiles);
+        //Analyze(new MatchAnalyzerMapCount(buckets), stacktraceFiles);
+        Analyze(new SimilarityAnalyzer(buckets), stacktraceFiles);
+
+        long endTime = System.currentTimeMillis();
+
+        System.out.println("Execution time " + (endTime - startTime) + " milliseconds");
     }
 
 

@@ -20,6 +20,7 @@ public class Stacktrace extends ArrayList<SubStackTrace>{
     private boolean first = true;
     private Bucket bucket;
     private boolean haveBucket;
+    private String fullString = null;
     
     public String getStackTraceNumber() {
         return stackTraceNumber;
@@ -46,6 +47,8 @@ public class Stacktrace extends ArrayList<SubStackTrace>{
     	return this.getBucket().getBuckets();
     }
 
+    public String getFullString(){return this.fullString; }
+
     public boolean haveBucket(){
     	return this.haveBucket;
     }
@@ -62,12 +65,12 @@ public class Stacktrace extends ArrayList<SubStackTrace>{
         this.stackTraceNumber = stackTraceNumber;
 
         try {
-            String stacktrace = Tools.readFile(fileStacktrace.getPath(), Charset.defaultCharset());
+            fullString = Tools.readFile(fileStacktrace.getPath(), Charset.defaultCharset());
             if(this.haveBucket == true){
             	this.getBuckets().incrementTotalStackTrace();
             	this.getBuckets().incrementTotalOkStackTrace();
             }
-            String[] splitedStrackTrace = stacktrace.split(Pattern.quote("#"));
+            String[] splitedStrackTrace = fullString.split(Pattern.quote("#"));
             ArrayList<String> splitedStrackTraceList = new ArrayList<String>(Arrays.asList(splitedStrackTrace));
             if(splitedStrackTraceList.get(0).equalsIgnoreCase(""))
                 splitedStrackTraceList.remove(0);

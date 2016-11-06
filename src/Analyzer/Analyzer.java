@@ -9,11 +9,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.CountDownLatch;
 
 public abstract class Analyzer implements IAnalyzer {
 
-	 Buckets buckets;
-	 File analyzeResultFile;
+	protected Buckets buckets;
+	private File analyzeResultFile;
+	private IAnalyzer THIS = null;
+	private int stacktraceAnalyzed = 0;
 
 	public Analyzer(Buckets buckets){
 		this.buckets = buckets;
@@ -22,23 +25,60 @@ public abstract class Analyzer implements IAnalyzer {
 			(new File(path)).delete();
 		}
 		analyzeResultFile = new File(path);
+		THIS = this;
 	}
+
+    public Analyzer(){
+        String path = this.getClass().getSimpleName() + ".txt";
+        if ((new File(path).exists())){
+            (new File(path)).delete();
+        }
+        analyzeResultFile = new File(path);
+        THIS = this;
+    }
 
 	public abstract Bucket searchBucket(Stacktrace stackTrace);
 		
-	public ArrayList<String> monperrusEvalPrinter(File [] stackTraceFiles){
-		Stacktrace stacktraceTesting;
+	public ArrayList<String> monperrusEvalPrinter(File [] stackTraceFiles) {
 		ArrayList<String> results = new ArrayList<>();
+		CountDownLatch latch = new CountDownLatch(stackTraceFiles.length);
+
 		for(File stackTraceTest : stackTraceFiles) {
-			stacktraceTesting = new Stacktrace();
-			stacktraceTesting.fill(stackTraceTest, stackTraceTest.getName().substring(0, stackTraceTest.getName().length()-4));
+			Thread thread = new Thread(new Runnable() {
+				public void run() {
+                    try {
+					Stacktrace stacktraceTesting = new Stacktrace();
+					stacktraceTesting.fill(stackTraceTest, stackTraceTest.getName().substring(0, stackTraceTest.getName().length()-4));
 
-			String result = "";
-			result += Integer.parseInt(stackTraceTest.getName().substring(0, stackTraceTest.getName().length()-4));
-			result +=  "  ->  ";
-			result +=  this.searchBucket(stacktraceTesting).getBucketNumber() + "\n";
+					String result = "";
+					result += Integer.parseInt(stackTraceTest.getName().substring(0, stackTraceTest.getName().length()-4));
+					result +=  "  ->  ";
+                    IAnalyzer analyzer = null;
 
-			results.add(result);
+                    analyzer = THIS.getClass().newInstance();
+
+                    analyzer.setBuckets(THIS.getBuckets());
+					result +=  analyzer.searchBucket(stacktraceTesting).getBucketNumber() + "\n";
+
+					results.add(result);
+
+					stacktraceAnalyzed++;
+					System.out.println("Analyzed Stacktrace : " + stacktraceAnalyzed + "/" + stackTraceFiles.length);
+					latch.countDown();
+                    } catch (InstantiationException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+				}
+			});
+			thread.start();
+		}
+
+		try{
+			latch.await();
+		}catch(InterruptedException ie) {
+			ie.printStackTrace();
 		}
 
 		return results;
@@ -57,10 +97,17 @@ public abstract class Analyzer implements IAnalyzer {
 		{
 			;
 		}
-	}
+    }
 	
 	public HashMap<String, ArrayList<String>> getAnalyzeResults(){
 		return new HashMap();
 	}
-	
+
+    public void setBuckets(Buckets buckets) {
+        this.buckets = buckets;
+    }
+
+    public Buckets getBuckets() {
+        return buckets;
+    }
 }

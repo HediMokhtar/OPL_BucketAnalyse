@@ -1,6 +1,7 @@
 package Analyzer;
 
 import Model.Bucket;
+import Model.Buckets;
 import Model.Stacktrace;
 
 import java.io.File;
@@ -24,9 +25,12 @@ public interface IAnalyzer {
      * @param stackTraceFiles the stackTraceFiles in input
      * @return
      */
-    ArrayList<String> monperrusEvalPrinter(File [] stackTraceFiles);
+    ArrayList<String> monperrusEvalPrinter(File [] stackTraceFiles) throws IllegalAccessException, InstantiationException;
 
     void createAnalyzeResultFile(File [] stackTraceFiles);
 
     HashMap<String, ArrayList<String>> getAnalyzeResults();
+
+    void setBuckets(Buckets buckets);
+    Buckets getBuckets();
 }
