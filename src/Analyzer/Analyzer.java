@@ -44,8 +44,8 @@ public abstract class Analyzer implements IAnalyzer {
 		CountDownLatch latch = new CountDownLatch(stackTraceFiles.length);
 
 		for(File stackTraceTest : stackTraceFiles) {
-			Thread thread = new Thread(new Runnable() {
-				public void run() {
+			//Thread thread = new Thread(new Runnable() {
+				//public void run() {
                     try {
 					Stacktrace stacktraceTesting = new Stacktrace();
 					stacktraceTesting.fill(stackTraceTest, stackTraceTest.getName().substring(0, stackTraceTest.getName().length()-4));
@@ -64,22 +64,22 @@ public abstract class Analyzer implements IAnalyzer {
 
 					stacktraceAnalyzed++;
 					System.out.println("Analyzed Stacktrace : " + stacktraceAnalyzed + "/" + stackTraceFiles.length);
-					latch.countDown();
+					//latch.countDown();
                     } catch (InstantiationException e) {
                         e.printStackTrace();
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     }
 				}
-			});
-			thread.start();
-		}
+			//});
+			//thread.start();
+		//}
 
-		try{
-			latch.await();
-		}catch(InterruptedException ie) {
-			ie.printStackTrace();
-		}
+		//try{
+		//	latch.await();
+		//}catch(InterruptedException ie) {
+		//	ie.printStackTrace();
+		//}
 
 		return results;
 	}
