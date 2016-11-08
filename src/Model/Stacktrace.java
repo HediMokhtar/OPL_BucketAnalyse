@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  * Created by Junior on 19-10-16.
  */
 @SuppressWarnings("serial")
-public class Stacktrace extends ArrayList<SubStackTrace>{
+public class Stacktrace extends ArrayList<SubStacktrace>{
 
     private String stackTraceNumber;
     private boolean first = true;
@@ -89,7 +89,7 @@ public class Stacktrace extends ArrayList<SubStackTrace>{
                     System.out.println("Regex fail for the id of the SubStacktrace : " + subStackTraceString);
 
                 //System.out.println("SUBSTACKTRACE : " + idSub + "\n" + subStackTraceString);
-                SubStackTrace subStackTrace = new SubStackTrace(this);
+                SubStacktrace subStackTrace = new SubStacktrace(this);
                 subStackTrace.fill(subStackTraceString, idSub);
                 //System.out.println();
                 this.add(subStackTrace);

@@ -9,13 +9,13 @@ import java.util.concurrent.CountDownLatch;
 /**
  * Created by Junior on 02-11-16.
  */
-public class SimilarityAnalyzer extends Analyzer {
+public class SimilarityAnalyzerV2 extends Analyzer {
 
-    public SimilarityAnalyzer(Buckets buckets) {
+    public SimilarityAnalyzerV2(Buckets buckets) {
         super(buckets);
     }
 
-    public SimilarityAnalyzer() {
+    public SimilarityAnalyzerV2() {
         super();
     }
 
@@ -28,7 +28,7 @@ public class SimilarityAnalyzer extends Analyzer {
 
         final int[] stacktraceAnalyzed = {0};
         final double[] result = {0};
-
+/*
         for (Bucket bucket : this.buckets) {
             Thread thread = new Thread(new Runnable() {
                 public void run() {
@@ -36,11 +36,9 @@ public class SimilarityAnalyzer extends Analyzer {
                     double globalSimilarity = 0;
 
                     for (Stacktrace stacktrace : bucket) {
-                        double simila = similarity(stackTrace.getFullString(), stacktrace.getFullString());
-                        //System.out.print(simila);
-                        globalSimilarity += simila;
-                        stacktraceAnalyzed[0]++;
-                        System.out.print(".");
+                        for (SubStacktrace stacktrace : stacktrace) {
+
+                        }
                     }
 
                     if (result[0] < (globalSimilarity / stacktraceNumber)) {
@@ -62,8 +60,9 @@ public class SimilarityAnalyzer extends Analyzer {
         }catch(InterruptedException ie) {
             ie.printStackTrace();
         }
-
+*/
         return bucketToReturn;
+
     }
 
 

@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * Created by Junior on 19-10-16.
  */
 @SuppressWarnings("serial")
-public class SubStackTrace extends ArrayList<String>{
+public class SubStacktrace extends ArrayList<String>{
 
     private String id;
     private String functionName = null;
@@ -33,12 +33,12 @@ public class SubStackTrace extends ArrayList<String>{
         return libraryName;
     }
 
-    public SubStackTrace() {
+    public SubStacktrace() {
     	super();
     	this.haveStackTrace = false;
     }
     
-    public SubStackTrace(String id, String functionName, String fileName, String libraryName) {
+    public SubStacktrace(String id, String functionName, String fileName, String libraryName) {
     	this.id = id;
     	this.functionName = functionName;
     	this.fileName = fileName;
@@ -46,7 +46,7 @@ public class SubStackTrace extends ArrayList<String>{
     	this.haveStackTrace = false;
     }
 
-    public SubStackTrace(Stacktrace stacktrace) {
+    public SubStacktrace(Stacktrace stacktrace) {
 		super();
 		this.stacktrace = stacktrace;
 		this.haveStackTrace = stacktrace.haveBucket();

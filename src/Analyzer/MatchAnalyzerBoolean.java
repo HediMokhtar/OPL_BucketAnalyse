@@ -3,7 +3,7 @@ package Analyzer;
 import Model.Bucket;
 import Model.Buckets;
 import Model.Stacktrace;
-import Model.SubStackTrace;
+import Model.SubStacktrace;
 
 import java.util.HashMap;
 
@@ -33,7 +33,7 @@ public class MatchAnalyzerBoolean extends Analyzer{
             //Main.fileMap.put(bucket.getFileNameProperty(), keyValue(Main.fileMap, bucket.getFileNameProperty()) +1);
             //Main.libraryMap.put(bucket.getLibraryNameProperty(), keyValue(Main.libraryMap, bucket.getLibraryNameProperty()) +1);
 
-            for(SubStackTrace subStackTrace : stackTrace)
+            for(SubStacktrace subStackTrace : stackTrace)
             {
                 //System.out.println(bucket.getFunctionNameProperty());
                 if(bucket.getFunctionNameProperty() != null && bucket.getFunctionNameProperty().size() > 0)

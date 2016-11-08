@@ -4,7 +4,7 @@ import Main.Tools;
 import Model.Bucket;
 import Model.Buckets;
 import Model.Stacktrace;
-import Model.SubStackTrace;
+import Model.SubStacktrace;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class MatchAnalyzerMapCount extends Analyzer {
 
             int generalCount = 0;
 
-            for (SubStackTrace subStackTrace : stackTrace) {
+            for (SubStacktrace subStackTrace : stackTrace) {
 
                 //System.out.println(bucket.getFunctionNameProperty());
                 if (bucket.getFunctionNameProperty() != null && bucket.getFunctionNameProperty().size() >= deepOfMatch) {

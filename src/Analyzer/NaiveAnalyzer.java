@@ -3,7 +3,7 @@ package Analyzer;
 import Model.Bucket;
 import Model.Buckets;
 import Model.Stacktrace;
-import Model.SubStackTrace;
+import Model.SubStacktrace;
 
 public class NaiveAnalyzer extends Analyzer{
 
@@ -25,7 +25,7 @@ public class NaiveAnalyzer extends Analyzer{
 	}
 	
 	private static boolean stackTraceMatch(Stacktrace stackTrace, Bucket bucket){
-    	for(SubStackTrace subStackTrace : stackTrace){
+    	for(SubStacktrace subStackTrace : stackTrace){
     		if(isPartOfSubStackTraceInTheBucket(subStackTrace, bucket)){
     			return true;
     		}
@@ -33,7 +33,7 @@ public class NaiveAnalyzer extends Analyzer{
     	return false;
     }
     
-    private static boolean isPartOfSubStackTraceInTheBucket(SubStackTrace subStackTrace, Bucket bucket){
+    private static boolean isPartOfSubStackTraceInTheBucket(SubStacktrace subStackTrace, Bucket bucket){
     	if(bucket.containFunctionName(subStackTrace.getFunctionName()) && bucket.containFileName(subStackTrace.getFileName())){
     		return true;
     	}

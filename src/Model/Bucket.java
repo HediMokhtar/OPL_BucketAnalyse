@@ -123,7 +123,7 @@ public class Bucket extends ArrayList<Stacktrace> {
     	String currentFileName;
     	String currentLibraryName;
     	
-    	for(SubStackTrace subStackTrace : stackTrace){
+    	for(SubStacktrace subStackTrace : stackTrace){
     		currentFunctionName = subStackTrace.getFunctionName();
         	currentFileName = subStackTrace.getFileName();
         	currentLibraryName = subStackTrace.getLibraryName();

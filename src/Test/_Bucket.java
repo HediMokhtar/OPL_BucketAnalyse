@@ -3,7 +3,7 @@ package Test;
 import Model.Bucket;
 import Model.Buckets;
 import Model.Stacktrace;
-import Model.SubStackTrace;
+import Model.SubStacktrace;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -17,7 +17,7 @@ public class _Bucket {
 	String fileName = "poppler-document.cc:89";
 	String libraryName = "/usr/lib/libgtk-x11-2.0.so.0";
 	
-	SubStackTrace sbt1 = new SubStackTrace("1",functionName,fileName,libraryName);
+	SubStacktrace sbt1 = new SubStacktrace("1",functionName,fileName,libraryName);
 	
 	Stacktrace st1 = new Stacktrace();
 	

@@ -3,7 +3,7 @@ package Analyzer;
 import Model.Bucket;
 import Model.Buckets;
 import Model.Stacktrace;
-import Model.SubStackTrace;
+import Model.SubStacktrace;
 
 /**
  * Created by Junior on 25-10-16.
@@ -28,7 +28,7 @@ public class MatchAnalyzerGeneralCount extends Analyzer {
 
             int generalCount = 0;
 
-            for (SubStackTrace subStackTrace : stackTrace) {
+            for (SubStacktrace subStackTrace : stackTrace) {
 
                 //System.out.println(bucket.getFunctionNameProperty());
                 if (bucket.getFunctionNameProperty() != null && bucket.getFunctionNameProperty().size() >= deepOfMatch) {
