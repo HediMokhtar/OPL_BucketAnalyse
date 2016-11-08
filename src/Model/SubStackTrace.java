@@ -82,6 +82,9 @@ public class SubStackTrace extends ArrayList<String>{
         this.id = id;
 
         String[] splitedSubStackTrace = null;
+
+        /*
+        String[] splitedSubStackTrace = null;
         splitedSubStackTrace = subStackTrace.split("(?=\\t\\t{0,500}.{0,500} = |\\t{0,500}.{0,500} = )");
         boolean first = true;
         boolean firstLocal = false;
@@ -116,9 +119,10 @@ public class SubStackTrace extends ArrayList<String>{
         }
 
 
+        */
         // Cette regex permet de récupérer les infos de nom de fonction + nom de fichier avec numéro de ligne ou nom de librairie + le cas particulier de ligns terminanant par "in ?? ()"
         Pattern pattern = Pattern.compile(" (.*)\\(.*\\).*at (.*.:[0-9]*)| in (.*)\\(.*\\) from (.+?(?=No )|.*)|( in \\?\\? .*)| in (.*)\\(.+?(?=No )", Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
-        Matcher matcher = pattern.matcher(splitedSubStackTrace[0]);
+        Matcher matcher = pattern.matcher(subStackTrace);
         if(this.haveStackTrace == true){
         	this.getBuckets().incrementTotalSubstacktrace();
         	this.getBuckets().incrementTotalOkSubstacktrace();

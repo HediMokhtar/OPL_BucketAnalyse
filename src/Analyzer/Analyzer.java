@@ -46,34 +46,34 @@ public abstract class Analyzer implements IAnalyzer {
 		for(File stackTraceTest : stackTraceFiles) {
 			//Thread thread = new Thread(new Runnable() {
 				//public void run() {
-                    try {
+                 //   try {
 					Stacktrace stacktraceTesting = new Stacktrace();
 					stacktraceTesting.fill(stackTraceTest, stackTraceTest.getName().substring(0, stackTraceTest.getName().length()-4));
 
 					String result = "";
 					result += Integer.parseInt(stackTraceTest.getName().substring(0, stackTraceTest.getName().length()-4));
 					result +=  "  ->  ";
-                    IAnalyzer analyzer = null;
 
-                    analyzer = THIS.getClass().newInstance();
+                    //IAnalyzer analyzer = null;
+                    //analyzer = THIS.getClass().newInstance();
+                    //analyzer.setBuckets(THIS.getBuckets());
 
-                    analyzer.setBuckets(THIS.getBuckets());
-					result +=  analyzer.searchBucket(stacktraceTesting).getBucketNumber() + "\n";
+					result +=  this.searchBucket(stacktraceTesting).getBucketNumber() + "\n";
 
 					results.add(result);
 
 					stacktraceAnalyzed++;
 					System.out.println("Analyzed Stacktrace : " + stacktraceAnalyzed + "/" + stackTraceFiles.length);
 					//latch.countDown();
-                    } catch (InstantiationException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-				}
+                    //} catch (InstantiationException e) {
+                    //    e.printStackTrace();
+                    //} catch (IllegalAccessException e) {
+                    //    e.printStackTrace();
+                    //}
+				//}
 			//});
 			//thread.start();
-		//}
+		}
 
 		//try{
 		//	latch.await();
