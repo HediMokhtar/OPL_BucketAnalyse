@@ -28,7 +28,7 @@ public class SimilarityAnalyzerV2 extends Analyzer {
 
         final int[] stacktraceAnalyzed = {0};
         final double[] result = {0};
-/*
+
         for (Bucket bucket : this.buckets) {
             Thread thread = new Thread(new Runnable() {
                 public void run() {
@@ -36,13 +36,23 @@ public class SimilarityAnalyzerV2 extends Analyzer {
                     double globalSimilarity = 0;
 
                     for (Stacktrace stacktrace : bucket) {
-                        for (SubStacktrace stacktrace : stacktrace) {
 
-                        }
+                        String subStacktraceTested = "";
+                        String subStacktrace = "";
+                        //if(stackTrace.get(0).size() > 0)
+                            subStacktraceTested = stackTrace.get(0).get(0);
+                        //if(stacktrace.get(0).size() > 0)
+                            subStacktrace = stacktrace.get(0).get(0);
+
+                        double simila = similarity(subStacktraceTested, subStacktrace);
+                        globalSimilarity += simila;
+                        stacktraceAnalyzed[0]++;
+                        System.out.print(".");
                     }
 
                     if (result[0] < (globalSimilarity / stacktraceNumber)) {
                         //System.out.print(result[0] + "  Replaced by  " + (globalSimilarity / stacktraceNumber) );
+                        //System.out.print(bucketToReturn.getBucketNumber() + "  Replaced by  " + bucketToReturn.getBucketNumber() );
                         result[0] = (globalSimilarity / stacktraceNumber);
                         bucketToReturn = bucket;
                     }
@@ -60,7 +70,7 @@ public class SimilarityAnalyzerV2 extends Analyzer {
         }catch(InterruptedException ie) {
             ie.printStackTrace();
         }
-*/
+
         return bucketToReturn;
 
     }

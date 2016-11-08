@@ -120,6 +120,26 @@ public class SubStacktrace extends ArrayList<String>{
 
 
         */
+
+        String subStackTraceFirstLine = "";
+
+        subStackTraceFirstLine = subStackTrace.replace("\n", "");
+        subStackTraceFirstLine = subStackTraceFirstLine.replace("\r", "");
+
+        Pattern pattern1 = Pattern.compile("(.* at .*:[0-9]*)|(.* in.*from .+?(?=No )|.*)|(.* in \\?\\? .*)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
+        Matcher matcher1 = pattern1.matcher(subStackTraceFirstLine);
+        if(matcher1.find()) {
+            if( matcher1.group(1) != null) {
+                subStackTraceFirstLine = matcher1.group(1);
+            }
+            else if( matcher1.group(2) != null) {
+                subStackTraceFirstLine = matcher1.group(2);
+            }
+        }
+        //System.out.println("-- subStackTraceFirstLine : " + subStackTraceFirstLine + "\n");
+
+        this.add(subStackTraceFirstLine);
+
         // Cette regex permet de récupérer les infos de nom de fonction + nom de fichier avec numéro de ligne ou nom de librairie + le cas particulier de ligns terminanant par "in ?? ()"
         Pattern pattern = Pattern.compile(" (.*)\\(.*\\).*at (.*.:[0-9]*)| in (.*)\\(.*\\) from (.+?(?=No )|.*)|( in \\?\\? .*)| in (.*)\\(.+?(?=No )", Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
         Matcher matcher = pattern.matcher(subStackTrace);
