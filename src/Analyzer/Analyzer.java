@@ -18,8 +18,11 @@ public abstract class Analyzer implements IAnalyzer {
 	private IAnalyzer THIS = null;
 	private int stacktraceAnalyzed = 0;
 
+	protected HashMap<Stacktrace,Buckets> potentialBuckets;
+
 	public Analyzer(Buckets buckets){
 		this.buckets = buckets;
+		this.potentialBuckets = new HashMap<Stacktrace, Buckets>();
 		String path = this.getClass().getSimpleName() + ".txt";
 		if ((new File(path).exists())){
 			(new File(path)).delete();

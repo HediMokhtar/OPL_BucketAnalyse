@@ -1,10 +1,10 @@
 package Main;
 
-import Analyzer.IAnalyzer;
-import Analyzer.SimilarityAnalyzerV2;
-import Model.Buckets;
-
 import java.io.File;
+
+import Analyzer.CombinationAnalyzer;
+import Analyzer.IAnalyzer;
+import Model.Buckets;
 
 
 /**
@@ -13,9 +13,9 @@ import java.io.File;
 public class Main {
 
     /** Path en absolu ou en relatif vers le dossier contenant les stacktrace à placer dans un bucket. **/
-    public static final String PATH_BUCKETS_TRAINING = "C:/data1/training";
+    public static final String PATH_BUCKETS_TRAINING = "C:/nautilus1/training";
     /** Path en absolu ou en relatif vers le dossier contenant les buckets déjà créé. **/
-    public static final String PATH_BUCKETS_TESTING = "C:/data1/testing";
+    public static final String PATH_BUCKETS_TESTING = "C:/nautilus1/testing";
 
 
     public static void main (String [] arg){
@@ -36,7 +36,7 @@ public class Main {
         //Analyze(new MatchAnalyzerGeneralCount(buckets), stacktraceFiles);
         //Analyze(new MatchAnalyzerMapCount(buckets), stacktraceFiles);
         //Analyze(new SimilarityAnalyzer(buckets), stacktraceFiles);
-        Analyze(new SimilarityAnalyzerV2(buckets), stacktraceFiles);
+        Analyze(new CombinationAnalyzer(buckets), stacktraceFiles);
 
         long endTime = System.currentTimeMillis();
 
