@@ -1,9 +1,10 @@
 package Main;
 
-import Analyzer.*;
-import Model.Buckets;
+import Analyzer.MatchAnalyzerBoolean;
 
+import Analyzer.*;
 import java.io.File;
+import Model.Buckets;
 
 
 /**
@@ -12,9 +13,9 @@ import java.io.File;
 public class Main {
 
     /** Path en absolu ou en relatif vers le dossier contenant les stacktrace à placer dans un bucket. **/
-    public static final String PATH_BUCKETS_TRAINING = "C:/data1/training";
+    public static final String PATH_BUCKETS_TRAINING = "C:/data2/training";
     /** Path en absolu ou en relatif vers le dossier contenant les buckets déjà créé. **/
-    public static final String PATH_BUCKETS_TESTING = "C:/data1/testing";
+    public static final String PATH_BUCKETS_TESTING = "C:/data2/testing";
 
 
     public static void main (String [] arg){
@@ -26,20 +27,47 @@ public class Main {
         File stacktraceFile = new File(PATH_BUCKETS_TESTING);
         File[] stacktraceFiles = stacktraceFile.listFiles();
 
-        long startTime = System.currentTimeMillis();
+        long startTime;
+        long endTime;
 
         /** Les différents analyseur que l'on exécute **/
         /** Chaque analyseur aura son fichier de résultat **/
-        //Analyze(new MatchAnalyzerBoolean(buckets), stacktraceFiles);
-        //Analyze(new MatchAnalyzerCount(buckets), stacktraceFiles);
-        //Analyze(new MatchAnalyzerGeneralCount(buckets), stacktraceFiles);
-        //Analyze(new MatchAnalyzerMapCount(buckets), stacktraceFiles);
-        //Analyze(new SimilarityAnalyzer(buckets), stacktraceFiles);
-            Analyze(new SimilarityAnalyzerV2(buckets), stacktraceFiles);
+        startTime = System.currentTimeMillis();
+        Analyze(new NaiveAnalyzer(buckets), stacktraceFiles);
+        endTime = System.currentTimeMillis();
+        System.out.println("1. Execution time " + (endTime - startTime) + " milliseconds");
+        startTime = System.currentTimeMillis();
+        Analyze(new MatchAnalyzerBoolean(buckets), stacktraceFiles);
+        endTime = System.currentTimeMillis();
+        System.out.println("2. Execution time " + (endTime - startTime) + " milliseconds");
+        startTime = System.currentTimeMillis();
+        Analyze(new MatchAnalyzerCount(buckets), stacktraceFiles);
+        endTime = System.currentTimeMillis();
+        System.out.println("3. Execution time " + (endTime - startTime) + " milliseconds");
+        startTime = System.currentTimeMillis();
+        Analyze(new MatchAnalyzerGeneralCount(buckets), stacktraceFiles);
+        endTime = System.currentTimeMillis();
+        System.out.println("4. Execution time " + (endTime - startTime) + " milliseconds");
+        startTime = System.currentTimeMillis();
+        Analyze(new MatchAnalyzerMapCount(buckets), stacktraceFiles);
+        endTime = System.currentTimeMillis();
+        System.out.println("5. Execution time " + (endTime - startTime) + " milliseconds");
+        startTime = System.currentTimeMillis();
+        Analyze(new SimilarityAnalyzerV2(buckets), stacktraceFiles);
+        endTime = System.currentTimeMillis();
+        System.out.println("6. Execution time " + (endTime - startTime) + " milliseconds");
+        startTime = System.currentTimeMillis();
+        Analyze(new CombinationAnalyzer(buckets), stacktraceFiles);
+        endTime = System.currentTimeMillis();
+        System.out.println("7. Execution time " + (endTime - startTime) + " milliseconds");
+        startTime = System.currentTimeMillis();
+        Analyze(new HashAnalyzer(buckets), stacktraceFiles);
+        endTime = System.currentTimeMillis();
+        System.out.println("8. Execution time " + (endTime - startTime) + " milliseconds");
 
-        long endTime = System.currentTimeMillis();
 
-        System.out.println("Execution time " + (endTime - startTime) + " milliseconds");
+
+
     }
 
 

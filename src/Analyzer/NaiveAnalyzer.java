@@ -15,10 +15,11 @@ public class NaiveAnalyzer extends Analyzer{
 	public Bucket searchBucket(Stacktrace stackTrace){
 
 		Bucket bucketToReturn = new Bucket("0");
-
+		this.potentialBuckets.put(stackTrace, new Buckets());
 		for(Bucket bucket : this.buckets){
 			if(stackTraceMatch(stackTrace, bucket)){
-				return bucketToReturn = bucket;
+				bucketToReturn = bucket;
+				this.potentialBuckets.get(stackTrace).add(bucket);
 			}
 		}
 		return bucketToReturn;
@@ -41,7 +42,7 @@ public class NaiveAnalyzer extends Analyzer{
     		return true;
     	}
     	return false;
-    }
+    }	
 }
 	
 	

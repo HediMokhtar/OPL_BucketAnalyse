@@ -18,9 +18,12 @@ public abstract class Analyzer implements IAnalyzer {
 	private IAnalyzer THIS = null;
 	private int stacktraceAnalyzed = 0;
 
+	protected HashMap<Stacktrace,Buckets> potentialBuckets;
+
 	public Analyzer(Buckets buckets){
 		this.buckets = buckets;
-		String path = this.getClass().getSimpleName() + ".txt";
+		this.potentialBuckets = new HashMap<Stacktrace, Buckets>();
+		String path = "results/"+this.getClass().getSimpleName() + ".txt";
 		if ((new File(path).exists())){
 			(new File(path)).delete();
 		}
@@ -29,7 +32,7 @@ public abstract class Analyzer implements IAnalyzer {
 	}
 
     public Analyzer(){
-        String path = this.getClass().getSimpleName() + ".txt";
+        String path = "results/"+ this.getClass().getSimpleName() + ".txt";
         if ((new File(path).exists())){
             (new File(path)).delete();
         }
@@ -63,7 +66,7 @@ public abstract class Analyzer implements IAnalyzer {
 					results.add(result);
 
 					stacktraceAnalyzed++;
-					System.out.println("Analyzed Stacktrace : " + stacktraceAnalyzed + "/" + stackTraceFiles.length);
+					//System.out.println("Analyzed Stacktrace : " + stacktraceAnalyzed + "/" + stackTraceFiles.length);
 					//latch.countDown();
                     //} catch (InstantiationException e) {
                     //    e.printStackTrace();

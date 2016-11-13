@@ -119,10 +119,6 @@ public class SimilarityAnalyzer extends Analyzer {
         return costs[s2.length()];
     }
 
-    public static void printSimilarity(String s, String t) {
-        System.out.println(String.format(
-                "%.3f is the similarity between \"%s\" and \"%s\"", similarity(s, t), s, t));
-    }
 
 
 }
