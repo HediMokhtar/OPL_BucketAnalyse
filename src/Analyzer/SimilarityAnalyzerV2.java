@@ -30,8 +30,8 @@ public class SimilarityAnalyzerV2 extends Analyzer {
         final double[] result = {0};
 
         for (Bucket bucket : this.buckets) {
-            Thread thread = new Thread(new Runnable() {
-                public void run() {
+                //Thread thread = new Thread(new Runnable() {
+                //public void run() {
                     int stacktraceNumber = bucket.size();
                     double globalSimilarity = 0;
 
@@ -47,29 +47,30 @@ public class SimilarityAnalyzerV2 extends Analyzer {
                         double simila = similarity(subStacktraceTested, subStacktrace);
                         globalSimilarity += simila;
                         stacktraceAnalyzed[0]++;
-                        System.out.print(".");
+                        //System.out.print(".");
                     }
 
                     if (result[0] < (globalSimilarity / stacktraceNumber)) {
                         //System.out.print(result[0] + "  Replaced by  " + (globalSimilarity / stacktraceNumber) );
                         //System.out.print(bucketToReturn.getBucketNumber() + "  Replaced by  " + bucketToReturn.getBucketNumber() );
                         result[0] = (globalSimilarity / stacktraceNumber);
+
                         bucketToReturn = bucket;
                     }
 
                     //System.out.print(" Global : " + globalSimilarity / stacktraceNumber);
                     //System.out.println("Stacktrace " + stackTrace.getStackTraceNumber() + "(Bucket "+ bucket.getBucketNumber() +") : " + ((stacktraceAnalyzed[0] /buckets.getTotalStackTrace())*100));
-                    latch.countDown();
-                }
-            });
-            thread.start();
+                    //latch.countDown();
+                //}
+            //});
+            //thread.start();
         }
 
-        try{
-            latch.await();
-        }catch(InterruptedException ie) {
-            ie.printStackTrace();
-        }
+        //try{
+        //    latch.await();
+        //}catch(InterruptedException ie) {
+        //    ie.printStackTrace();
+        //}
 
         return bucketToReturn;
 

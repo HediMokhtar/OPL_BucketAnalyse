@@ -82,8 +82,8 @@ public class Stacktrace extends ArrayList<SubStacktrace>{
                 if(matcher.find()) {
                     if(!matcher.group(1) .equalsIgnoreCase(""))
                         idSub = matcher.group(1);
-                    else
-                        System.out.println(subStackTraceString);
+                    else;
+                        //System.out.println(subStackTraceString);
                 }
                 else
                     System.out.println("Regex fail for the id of the SubStacktrace : " + subStackTraceString);

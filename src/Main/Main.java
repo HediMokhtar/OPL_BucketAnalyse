@@ -1,7 +1,6 @@
 package Main;
 
-import Analyzer.IAnalyzer;
-import Analyzer.SimilarityAnalyzerV2;
+import Analyzer.*;
 import Model.Buckets;
 
 import java.io.File;
@@ -36,7 +35,7 @@ public class Main {
         //Analyze(new MatchAnalyzerGeneralCount(buckets), stacktraceFiles);
         //Analyze(new MatchAnalyzerMapCount(buckets), stacktraceFiles);
         //Analyze(new SimilarityAnalyzer(buckets), stacktraceFiles);
-        Analyze(new SimilarityAnalyzerV2(buckets), stacktraceFiles);
+            Analyze(new SimilarityAnalyzerV2(buckets), stacktraceFiles);
 
         long endTime = System.currentTimeMillis();
 
